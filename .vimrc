@@ -127,12 +127,26 @@ set showcmd
 
 " Allow backspace to delete end of line, indent and start of line characters
 set backspace=indent,eol,start
+" Convert tabs to spaces
 set expandtab
 set tabstop=4
+
+" The number of spaces inserted for a tab (used for auto indenting)
 set shiftwidth=4
+
+" Highlight tailing whitespace
 set listchars=tab:\ \},trail:.
+" Find trailing whitespace
+match ErrorMsg '\s\+$'
+" Delete trailing whitespace
+nnoremap <Leader>rtw :%s/\s\+$//e<CR>
+
 set laststatus=2
 set statusline=%f\ %=L:%l/%L\ %c\ (%p%%)
+
+" Turn word wrap off
+
+set sidescroll=5
 
 setlocal spell spelllang=en_us "Spelling
 set complete+=kspell
