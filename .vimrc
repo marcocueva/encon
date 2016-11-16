@@ -108,16 +108,24 @@ set completeopt=menu,menuone,longest
 set pumheight=15
 " }}}1
 
+"No swap file
 set noswapfile
+"Show line number
 set number
 set encoding=utf-8
 
-set hlsearch "Search options
+" ===== Search options ======
+"
+"Highligth search matches
+set hlsearch 
+"Ignore case when searching
 set smartcase
 set incsearch
 set ignorecase
 
 set showcmd
+
+" Allow backspace to delete end of line, indent and start of line characters
 set backspace=indent,eol,start
 set expandtab
 set tabstop=4
