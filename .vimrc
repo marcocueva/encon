@@ -110,6 +110,8 @@ set pumheight=15
 
 "No swap file
 set noswapfile
+" Command history
+set history=100
 "Show line number
 set number
 set encoding=utf-8
@@ -119,10 +121,12 @@ set encoding=utf-8
 "Highligth search matches
 set hlsearch 
 "Ignore case when searching
-set smartcase
-set incsearch
 set ignorecase
+set smartcase
+" Incremental searching (search as you type)
+set incsearch
 
+" Show incomplete commands
 set showcmd
 
 " Allow backspace to delete end of line, indent and start of line characters
@@ -141,19 +145,22 @@ match ErrorMsg '\s\+$'
 " Delete trailing whitespace
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
 
+" Always show status bar
 set laststatus=2
 set statusline=%f\ %=L:%l/%L\ %c\ (%p%%)
 
 " Turn word wrap off
-
+set nowrap
 set sidescroll=5
 
-setlocal spell spelllang=en_us "Spelling
+" Default Spelling
+setlocal spell spelllang=en_us 
 set complete+=kspell
 
+" Switch syntax highlighting on, when the terminal has colors 
 syntax on
 
-" Theme options
+" ====== Theme options =====
 if has('gui_running')
   set background=dark
   colorscheme solarized
@@ -169,8 +176,12 @@ nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
 nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 
+" Always show the cursor
 set ruler
 set clipboard+=unnamed
+
+" Don't show intro
+set shortmess+=I
 
 set splitbelow "split windows
 set splitright
@@ -184,17 +195,36 @@ nnoremap <C-H> <C-W><C-H>
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
+" Close all folds when opening a new buffer
+autocmd BufRead * setlocal foldmethod=marker
+autocmd BufRead * normal zM
 
 " Enable folding with the spacebar
 nnoremap <space> za
-
+" Highlight the current line
 set cursorline
+" Visual autocomplete for command menu (e.g. :e ~/path/to/file)
 set wildmenu
+" redraw only when we need to (i.e. don't redraw when executing a macro)
+set lazyredraw
+" highlight a matching [{()}] when cursor is placed on start/end character
 set showmatch
+" Always highlight column 80 so it's easier to see where
+" cutoff appears on longer screens
 autocmd BufWinEnter * highlight ColorColumn ctermbg=white
 set colorcolumn=80
 set mouse=a
+" Ensure Vim doesn't beep at you every time you make a mistype
+set visualbell
 
+" Change colourscheme when diffing
+fun! SetDiffColors()
+  highlight DiffAdd    cterm=bold ctermfg=white ctermbg=DarkGreen
+  highlight DiffDelete cterm=bold ctermfg=white ctermbg=DarkGrey
+  highlight DiffChange cterm=bold ctermfg=white ctermbg=DarkBlue
+  highlight DiffText   cterm=bold ctermfg=white ctermbg=DarkRed
+endfun
+autocmd FilterWritePre * call SetDiffColors()
 
 au BufNewFile,BufRead *.py
     \ set tabstop=4
