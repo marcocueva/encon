@@ -1,5 +1,5 @@
 set nocompatible
-"filetype off
+filetype off
 
 " set the runtime path to include Vundle and initialize
 set rtp+=$VIM/vimfiles/bundle/Vundle.vim
@@ -58,9 +58,6 @@ Plugin 'ervandew/supertab'
 
 Plugin 'jistr/vim-nerdtree-tabs'
 
-" Incremental searc
-Plugin 'haya14busa/incsearch.vim'
-
 " snippets
 Plugin 'SirVer/ultisnips'
 
@@ -116,22 +113,18 @@ set noswapfile
 " Command history
 set history=100
 "Show line number
-set relativenumber
+set number
 set encoding=utf-8
 
 " ===== Search options ======
 "
 "Highligth search matches
-set hlsearch
+set hlsearch 
 "Ignore case when searching
 set ignorecase
 set smartcase
 " Incremental searching (search as you type)
 set incsearch
-
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
 
 " Show incomplete commands
 set showcmd
@@ -161,10 +154,10 @@ set nowrap
 set sidescroll=5
 
 " Default Spelling
-setlocal spell spelllang=en_us
+setlocal spell spelllang=en_us 
 set complete+=kspell
 
-" Switch syntax highlighting on, when the terminal has colors
+" Switch syntax highlighting on, when the terminal has colors 
 syntax on
 
 " ====== Theme options =====
@@ -172,7 +165,7 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
-  colorscheme industry 
+  colorscheme zenburn
 endif
 call togglebg#map("<F5>")
 set lines=48 columns=160 "Window size
