@@ -1,5 +1,5 @@
 set nocompatible
-"filetype off
+filetype on
 
 " set the runtime path to include Vundle and initialize
 set rtp+=$VIM/vimfiles/bundle/Vundle.vim
@@ -51,6 +51,9 @@ Plugin 'tomasr/molokai'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'W0ng/vim-hybrid'
 Plugin 'jnurmine/Zenburn'
+Plugin 'romainl/apprentice'
+Plugin 'jacoborus/tender.vim'
+Plugin 'ajh17/spacegray.vim'
 
 " navigation
 Plugin 'easymotion/vim-easymotion'
@@ -58,7 +61,7 @@ Plugin 'ervandew/supertab'
 
 Plugin 'jistr/vim-nerdtree-tabs'
 
-" Incremental searc
+" Incremental search
 Plugin 'haya14busa/incsearch.vim'
 
 " snippets
@@ -68,7 +71,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'StanAngeloff/php.vim'
 Plugin 'shawncplus/phpcomplete.vim'
 
-" general wev dev
+" general web/dev
 Plugin 'tpope/vim-markdown'
 Plugin 'tyru/open-browser.vim'
 
@@ -76,7 +79,7 @@ Plugin 'eugen0329/vim-esearch'
 
 Plugin 'dsawardekar/wordpress.vim'
 
-Plugin 'valloric/youcompleteme'
+"Plugin 'valloric/youcompleteme'
 
 Plugin 'raimondi/delimitmate'
 
@@ -129,12 +132,12 @@ set smartcase
 " Incremental searching (search as you type)
 set incsearch
 
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+"map /  <Plug>(incsearch-forward)
+"map ?  <Plug>(incsearch-backward)
+"map g/ <Plug>(incsearch-stay)
 
 " Show incomplete commands
-set showcmd
+set showcmd "test Marco 11/18
 
 " Allow backspace to delete end of line, indent and start of line characters
 set backspace=indent,eol,start
@@ -172,7 +175,9 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
-  colorscheme industry 
+  colorscheme industry "evening spacegray industry test  Marco
+  :hi SpellBad cterm=underline "test marco
+endif
 endif
 call togglebg#map("<F5>")
 set lines=48 columns=160 "Window size
@@ -212,10 +217,14 @@ nnoremap <space> za
 set cursorline
 " Visual autocomplete for command menu (e.g. :e ~/path/to/file)
 set wildmenu
+set wildmode=list:longest
+
+
 " redraw only when we need to (i.e. don't redraw when executing a macro)
 set lazyredraw
 " highlight a matching [{()}] when cursor is placed on start/end character
 set showmatch
+set showmode "test marco 11/18
 " Always highlight column 80 so it's easier to see where
 " cutoff appears on longer screens
 autocmd BufWinEnter * highlight ColorColumn ctermbg=white
