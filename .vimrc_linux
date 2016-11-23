@@ -174,12 +174,11 @@ if has('gui_running')
   colorscheme solarized
 else
   colorscheme industry
+:hi SpellBad cterm=underline "test marco
 endif
-"call togglebg#map("<F5>")
+endif
+call togglebg#map("<F5>")
 set lines=36 columns=120 "Window size
-" Font options
-
-
 " Font options
 if has("gui_running")
   if has("gui_gtk2") || has("gui_gtk3")
@@ -229,6 +228,8 @@ nnoremap <space> za
 set cursorline
 " Visual autocomplete for command menu (e.g. :e ~/path/to/file)
 set wildmenu
+set wildmode=list:longest
+set wildmode=list:longest
 " redraw only when we need to (i.e. don't redraw when executing a macro)
 set lazyredraw
 " highlight a matching [{()}] when cursor is placed on start/end character

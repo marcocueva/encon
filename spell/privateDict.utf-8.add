@@ -7,3 +7,12 @@ F5
 config
 omnicompletion
 vundle
+dev
+L9
+repos
+when
+gmarik
+sparkup
+subdirectory
+don't
+autocomplete

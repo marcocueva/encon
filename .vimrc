@@ -150,8 +150,7 @@ set shiftwidth=4
 
 " Highlight tailing whitespace
 set listchars=tab:\ \},trail:.
-" Find trailing whitespace
-match ErrorMsg '\s\+$'
+" Find trailing whitespace match ErrorMsg '\s\+$'
 " Delete trailing whitespace
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
 
@@ -167,7 +166,8 @@ set sidescroll=5
 setlocal spell spelllang=en_us
 set complete+=kspell
 
-set spellfile=$HOME/encon/spell/privateDict-8.add
+" Xtra words / Private dict.
+set spellfile=$HOME/encon/spell/privateDict.utf-8.add
 
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
@@ -177,14 +177,27 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
-  colorscheme industry "evening spacegray industry test  Marco
-  :hi SpellBad cterm=underline "test marco
+  colorscheme industry 
+:hi SpellBad cterm=underline "test marco
 endif
 endif
 call togglebg#map("<F5>")
-set lines=48 columns=160 "Window size
+set lines=36 columns=120 "Window size
 " Font options
-set guifont=Inconsolata\h12:cANSI:qDRAFT
+if has("gui_running")
+  if has("gui_gtk2") || has("gui_gtk3")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_photon")
+    set guifont=Inconsolata\:s12
+  elseif has("gui_kde")
+    set guifont=Courier\ New/12/-1/5/50/0/0/0/1/0
+  elseif has("x11")
+    set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
+  else
+    set guifont=Inconsolata:h12:cDEFAULT " --Windows font
+  endif
+endif
+
 " Toggle gui elements
 nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
@@ -220,7 +233,6 @@ set cursorline
 " Visual autocomplete for command menu (e.g. :e ~/path/to/file)
 set wildmenu
 set wildmode=list:longest
-
 
 " redraw only when we need to (i.e. don't redraw when executing a macro)
 set lazyredraw
