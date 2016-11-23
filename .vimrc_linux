@@ -1,9 +1,9 @@
 set nocompatible
-filetype on
+filetype off
 
 " set the runtime path to include Vundle and initialize
-set rtp+=$VIM/vimfiles/bundle/Vundle.vim
-call vundle#begin('/Program Files (x86)/Vim/vimfiles/bundle')
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
@@ -18,7 +18,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-haml'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
+"Plugin 'L9'
 " Git plugin not hosted on GitHub
 Plugin 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
@@ -29,7 +29,6 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 Plugin 'ascenator/L9', {'name': 'newL9'}
-
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 
@@ -51,9 +50,6 @@ Plugin 'tomasr/molokai'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'W0ng/vim-hybrid'
 Plugin 'jnurmine/Zenburn'
-Plugin 'romainl/apprentice'
-Plugin 'jacoborus/tender.vim'
-Plugin 'ajh17/spacegray.vim'
 
 " navigation
 Plugin 'easymotion/vim-easymotion'
@@ -71,7 +67,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'StanAngeloff/php.vim'
 Plugin 'shawncplus/phpcomplete.vim'
 
-" general web/dev
+" general wev dev
 Plugin 'tpope/vim-markdown'
 Plugin 'tyru/open-browser.vim'
 
@@ -81,11 +77,11 @@ Plugin 'dsawardekar/wordpress.vim'
 
 "Plugin 'valloric/youcompleteme'
 
-Plugin 'raimondi/delimitmate'
+Plugin 'raimondi/delimitmat --Windows font'
 
 Plugin 'groenewege/vim-less'
 
-Plugin 'thinca/vim-fontzoom'
+"Plugin 'thinca/vim-fontzoom'
 
 Plugin 'takac/vim-fontmanager'
 
@@ -137,7 +133,7 @@ set incsearch
 "map g/ <Plug>(incsearch-stay)
 
 " Show incomplete commands
-set showcmd "test Marco 11/18
+set showcmd
 
 " Allow backspace to delete end of line, indent and start of line characters
 set backspace=indent,eol,start
@@ -150,8 +146,7 @@ set shiftwidth=4
 
 " Highlight tailing whitespace
 set listchars=tab:\ \},trail:.
-" Find trailing whitespace
-match ErrorMsg '\s\+$'
+" Find trailing whitespace match ErrorMsg '\s\+$'
 " Delete trailing whitespace
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
 
@@ -167,7 +162,8 @@ set sidescroll=5
 setlocal spell spelllang=en_us
 set complete+=kspell
 
-set spellfile=$HOME/encon/spell/privateDict-8.add
+" Xtra words / Private dict.
+set spellfile=$HOME/encon/spell/privateDict.utf-8.add
 
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
@@ -177,14 +173,28 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
-  colorscheme industry "evening spacegray industry test  Marco
-  :hi SpellBad cterm=underline "test marco
+  colorscheme industry
 endif
-endif
-call togglebg#map("<F5>")
-set lines=48 columns=160 "Window size
+"call togglebg#map("<F5>")
+set lines=36 columns=120 "Window size
 " Font options
-set guifont=Inconsolata\h12:cANSI:qDRAFT
+
+
+" Font options
+if has("gui_running")
+  if has("gui_gtk2") || has("gui_gtk3")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_photon")
+    set guifont=Inconsolata\:s12
+  elseif has("gui_kde")
+    set guifont=Courier\ New/12/-1/5/50/0/0/0/1/0
+  elseif has("x11")
+    set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
+  else
+    set guifont=Inconsolata:h12:cDEFAULT " --Windows font
+  endif
+endif
+
 " Toggle gui elements
 nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
@@ -219,14 +229,10 @@ nnoremap <space> za
 set cursorline
 " Visual autocomplete for command menu (e.g. :e ~/path/to/file)
 set wildmenu
-set wildmode=list:longest
-
-
 " redraw only when we need to (i.e. don't redraw when executing a macro)
 set lazyredraw
 " highlight a matching [{()}] when cursor is placed on start/end character
 set showmatch
-set showmode "test marco 11/18
 " Always highlight column 80 so it's easier to see where
 " cutoff appears on longer screens
 autocmd BufWinEnter * highlight ColorColumn ctermbg=white
