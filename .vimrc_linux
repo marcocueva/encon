@@ -67,7 +67,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'StanAngeloff/php.vim'
 Plugin 'shawncplus/phpcomplete.vim'
 
-" general wev dev
+" general web/dev
 Plugin 'tpope/vim-markdown'
 Plugin 'tyru/open-browser.vim'
 
@@ -77,7 +77,7 @@ Plugin 'dsawardekar/wordpress.vim'
 
 "Plugin 'valloric/youcompleteme'
 
-Plugin 'raimondi/delimitmat --Windows font'
+Plugin 'raimondi/delimitmate'
 
 Plugin 'groenewege/vim-less'
 
@@ -174,11 +174,12 @@ if has('gui_running')
   colorscheme solarized
 else
   colorscheme industry
-:hi SpellBad cterm=underline "test marco
 endif
-endif
-call togglebg#map("<F5>")
+"call togglebg#map("<F5>")
 set lines=36 columns=120 "Window size
+" Font options
+
+
 " Font options
 if has("gui_running")
   if has("gui_gtk2") || has("gui_gtk3")
@@ -222,14 +223,12 @@ set foldlevel=99
 autocmd BufRead * setlocal foldmethod=marker
 autocmd BufRead * normal zM
 
-" Enable folding with the spacebar
+" Enable folding with the space bar
 nnoremap <space> za
 " Highlight the current line
 set cursorline
 " Visual autocomplete for command menu (e.g. :e ~/path/to/file)
 set wildmenu
-set wildmode=list:longest
-set wildmode=list:longest
 " redraw only when we need to (i.e. don't redraw when executing a macro)
 set lazyredraw
 " highlight a matching [{()}] when cursor is placed on start/end character
@@ -242,7 +241,7 @@ set mouse=a
 " Ensure Vim doesn't beep at you every time you make a mistype
 set visualbell
 
-" Change colourscheme when diffing
+" Change color scheme when diffing
 fun! SetDiffColors()
   highlight DiffAdd    cterm=bold ctermfg=white ctermbg=DarkGreen
   highlight DiffDelete cterm=bold ctermfg=white ctermbg=DarkGrey
@@ -267,3 +266,23 @@ au BufNewFile,BufRead *.js, *.html, *.css
 
 
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+"------------------------"
+"NERDTREE PLUGIN SETTINGS ---added 25/11
+"------------------------"
+"Shortcut for NERDTreeToggle
+nmap <leader>nt :NERDTreeToggle <CR>
+
+"Show hidden files in NerdTree
+let NERDTreeShowHidden=1
+
+"autopen NERDTree and focus cursor in new document
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
+"Helpeful abbreviations
+iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+"Spelling corrects. Just for example. Add yours below.
+iab teh the
+iab Teh The
