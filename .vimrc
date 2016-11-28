@@ -1,9 +1,9 @@
 set nocompatible
-filetype on
+filetype off
 
 " set the runtime path to include Vundle and initialize
-set rtp+=$VIM/vimfiles/bundle/Vundle.vim
-call vundle#begin('/Program Files (x86)/Vim/vimfiles/bundle')
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
@@ -18,7 +18,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-haml'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
+"Plugin 'L9'
 " Git plugin not hosted on GitHub
 Plugin 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
@@ -29,7 +29,6 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 Plugin 'ascenator/L9', {'name': 'newL9'}
-
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 
@@ -51,9 +50,6 @@ Plugin 'tomasr/molokai'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'W0ng/vim-hybrid'
 Plugin 'jnurmine/Zenburn'
-Plugin 'romainl/apprentice'
-Plugin 'jacoborus/tender.vim'
-Plugin 'ajh17/spacegray.vim'
 
 " navigation
 Plugin 'easymotion/vim-easymotion'
@@ -85,7 +81,7 @@ Plugin 'raimondi/delimitmate'
 
 Plugin 'groenewege/vim-less'
 
-Plugin 'thinca/vim-fontzoom'
+"Plugin 'thinca/vim-fontzoom'
 
 Plugin 'takac/vim-fontmanager'
 
@@ -137,7 +133,7 @@ set incsearch
 "map g/ <Plug>(incsearch-stay)
 
 " Show incomplete commands
-set showcmd "test Marco 11/18
+set showcmd
 
 " Allow backspace to delete end of line, indent and start of line characters
 set backspace=indent,eol,start
@@ -177,12 +173,13 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
-  colorscheme industry 
-:hi SpellBad cterm=underline "test marco
+  colorscheme industry
 endif
-endif
-call togglebg#map("<F5>")
+"call togglebg#map("<F5>")
 set lines=36 columns=120 "Window size
+" Font options
+
+
 " Font options
 if has("gui_running")
   if has("gui_gtk2") || has("gui_gtk3")
@@ -226,19 +223,16 @@ set foldlevel=99
 autocmd BufRead * setlocal foldmethod=marker
 autocmd BufRead * normal zM
 
-" Enable folding with the spacebar
+" Enable folding with the space bar
 nnoremap <space> za
 " Highlight the current line
 set cursorline
 " Visual autocomplete for command menu (e.g. :e ~/path/to/file)
 set wildmenu
-set wildmode=list:longest
-
 " redraw only when we need to (i.e. don't redraw when executing a macro)
 set lazyredraw
 " highlight a matching [{()}] when cursor is placed on start/end character
 set showmatch
-set showmode "test marco 11/18
 " Always highlight column 80 so it's easier to see where
 " cutoff appears on longer screens
 autocmd BufWinEnter * highlight ColorColumn ctermbg=white
@@ -247,7 +241,7 @@ set mouse=a
 " Ensure Vim doesn't beep at you every time you make a mistype
 set visualbell
 
-" Change colourscheme when diffing
+" Change color scheme when diffing
 fun! SetDiffColors()
   highlight DiffAdd    cterm=bold ctermfg=white ctermbg=DarkGreen
   highlight DiffDelete cterm=bold ctermfg=white ctermbg=DarkGrey
@@ -272,3 +266,38 @@ au BufNewFile,BufRead *.js, *.html, *.css
 
 
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+"------------------------"
+"NERDTREE PLUGIN SETTINGS ---added 25/11
+"------------------------"
+"Shortcut for NERDTreeToggle
+nmap <leader>nt :NERDTreeToggle <CR>
+
+"Show hidden files in NerdTree
+let NERDTreeShowHidden=1
+
+"autopen NERDTree and focus cursor in new document
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
+
+" -----------------------------
+
+"Helpeful abbreviations
+iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+
+"Spelling corrects. Just for example. Add yours below.
+iab teh the
+iab Teh The
+
+"Automatically change the current directory 
+"autocmd BufEnter * silent! lcd %:p:h
+
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+
+
+cabbr <expr> %% expand('%:p:h') 
+"while editing file /some/path/myfile.txt, typing :e %%/ on the command line will expand to  :e /some/path/.
+
+set path=$PWD/**
+" This will set your path variable to current directory (from which you launched vim) and to all directories under current directory recursively
