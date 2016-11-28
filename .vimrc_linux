@@ -1,9 +1,9 @@
 set nocompatible
-filetype on
+filetype off
 
 " set the runtime path to include Vundle and initialize
-set rtp+=$VIM/vimfiles/bundle/Vundle.vim
-call vundle#begin('/Program Files (x86)/Vim/vimfiles/bundle')
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
@@ -18,7 +18,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-haml'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
+"Plugin 'L9'
 " Git plugin not hosted on GitHub
 Plugin 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
@@ -29,7 +29,6 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 Plugin 'ascenator/L9', {'name': 'newL9'}
-
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 
@@ -51,9 +50,6 @@ Plugin 'tomasr/molokai'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'W0ng/vim-hybrid'
 Plugin 'jnurmine/Zenburn'
-Plugin 'romainl/apprentice'
-Plugin 'jacoborus/tender.vim'
-Plugin 'ajh17/spacegray.vim'
 
 " navigation
 Plugin 'easymotion/vim-easymotion'
@@ -71,7 +67,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'StanAngeloff/php.vim'
 Plugin 'shawncplus/phpcomplete.vim'
 
-" general web/dev
+" general wev dev
 Plugin 'tpope/vim-markdown'
 Plugin 'tyru/open-browser.vim'
 
@@ -81,11 +77,11 @@ Plugin 'dsawardekar/wordpress.vim'
 
 "Plugin 'valloric/youcompleteme'
 
-Plugin 'raimondi/delimitmate'
+Plugin 'raimondi/delimitmat --Windows font'
 
 Plugin 'groenewege/vim-less'
 
-Plugin 'thinca/vim-fontzoom'
+"Plugin 'thinca/vim-fontzoom'
 
 Plugin 'takac/vim-fontmanager'
 
@@ -137,7 +133,7 @@ set incsearch
 "map g/ <Plug>(incsearch-stay)
 
 " Show incomplete commands
-set showcmd "test Marco 11/18
+set showcmd
 
 " Allow backspace to delete end of line, indent and start of line characters
 set backspace=indent,eol,start
@@ -177,7 +173,7 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
-  colorscheme industry 
+  colorscheme industry
 :hi SpellBad cterm=underline "test marco
 endif
 endif
@@ -233,12 +229,11 @@ set cursorline
 " Visual autocomplete for command menu (e.g. :e ~/path/to/file)
 set wildmenu
 set wildmode=list:longest
-
+set wildmode=list:longest
 " redraw only when we need to (i.e. don't redraw when executing a macro)
 set lazyredraw
 " highlight a matching [{()}] when cursor is placed on start/end character
 set showmatch
-set showmode "test marco 11/18
 " Always highlight column 80 so it's easier to see where
 " cutoff appears on longer screens
 autocmd BufWinEnter * highlight ColorColumn ctermbg=white

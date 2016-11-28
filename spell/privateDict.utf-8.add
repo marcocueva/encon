@@ -7,3 +7,23 @@ F5
 config
 omnicompletion
 vundle
+<<<<<<< HEAD
+=======
+dev
+L9
+repos
+when
+gmarik
+sparkup
+subdirectory
+don't
+autocomplete
+>>>>>>> c5137edf6a22e6959911b32c3928159e3579916d
+Dolly'll
+favourite
+Cueva
+rotator
+Marcocueva
+URI
+McRotator
+marcocueva
