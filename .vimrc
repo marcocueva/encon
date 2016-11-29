@@ -120,7 +120,7 @@ set encoding=utf-8
 
 " ===== Search options ======
 "
-"Highligth search matches
+"Highlight search matches
 set hlsearch
 "Ignore case when searching
 set ignorecase
@@ -146,7 +146,8 @@ set shiftwidth=4
 
 " Highlight tailing whitespace
 set listchars=tab:\ \},trail:.
-" Find trailing whitespace match ErrorMsg '\s\+$'
+" Find trailing whitespace
+match ErrorMsg '\s\+$'
 " Delete trailing whitespace
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
 
@@ -173,10 +174,11 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
-  colorscheme industry
+ colorscheme industry "evening spacegray industry test  Marco
+  :hi SpellBad cterm=underline "test Marco
 endif
-"call togglebg#map("<F5>")
-set lines=36 columns=120 "Window size
+call togglebg#map("<F5>")
+set lines=48 columns=160 "Window size
 " Font options
 
 
@@ -229,10 +231,16 @@ nnoremap <space> za
 set cursorline
 " Visual autocomplete for command menu (e.g. :e ~/path/to/file)
 set wildmenu
+
+set wildmode=list:longest
+
 " redraw only when we need to (i.e. don't redraw when executing a macro)
 set lazyredraw
 " highlight a matching [{()}] when cursor is placed on start/end character
 set showmatch
+
+set showmode "test marco 11/18
+
 " Always highlight column 80 so it's easier to see where
 " cutoff appears on longer screens
 autocmd BufWinEnter * highlight ColorColumn ctermbg=white
