@@ -18,7 +18,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-haml'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
+"Plugin 'L9'
 " Git plugin not hosted on GitHub
 Plugin 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
@@ -51,24 +51,32 @@ Plugin 'tomasr/molokai'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'W0ng/vim-hybrid'
 Plugin 'jnurmine/Zenburn'
+Plugin 'tamwitsta/flatwhite-vim'
+Plugin 'romainl/apprentice'
+Plugin 'jacoborus/tender.vim'
+Plugin 'ajh17/spacegray.vim'
 
 " navigation
 Plugin 'easymotion/vim-easymotion'
 Plugin 'ervandew/supertab'
+Plugin 'bufexplorer.zip'
 
 Plugin 'jistr/vim-nerdtree-tabs'
-
-" Incremental searc
+"Tmux navigation
+Plugin 'christoomey/vim-tmux-navigator'
+" Incremental search
 Plugin 'haya14busa/incsearch.vim'
 
 " snippets
 Plugin 'SirVer/ultisnips'
+"Documentación
+Plugin 'Keith/investigate.vim'
 
 " php
 Plugin 'StanAngeloff/php.vim'
 Plugin 'shawncplus/phpcomplete.vim'
 
-" general wev dev
+" general web/dev
 Plugin 'tpope/vim-markdown'
 Plugin 'tyru/open-browser.vim'
 
@@ -134,7 +142,7 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " Show incomplete commands
-set showcmd
+set showcmd "test Marco 11/18
 
 " Allow backspace to delete end of line, indent and start of line characters
 set backspace=indent,eol,start
@@ -164,6 +172,9 @@ set sidescroll=5
 setlocal spell spelllang=en_us
 set complete+=kspell
 
+" Xtra words / Private dict.
+set spellfile=$HOME/encon/spell/privateDict.utf-8.add
+
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
 
@@ -172,12 +183,32 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
-  colorscheme industry 
+  colorscheme industry "evening spacegray industry test  Marco
+  :hi SpellBad cterm=underline "test marco
 endif
+"Change spelling highlightning
+hi clear SpellBad
+hi SpellBad cterm=underline
+
 "call togglebg#map("<F5>")
-set lines=48 columns=160 "Window size
+set lines=36 columns=120 "Window size
+
+
 " Font options
-set guifont=Inconsolata:h12:cANSI:qDRAFT
+if has("gui_running")
+  if has("gui_gtk2") || has("gui_gtk3")
+    set guifont=Inconsolata\ 13
+  elseif has("gui_photon")
+    set guifont=Inconsolata\:s13
+  elseif has("gui_kde")
+    set guifont=Courier\ New/13/-1/5/50/0/0/0/1/0
+  elseif has("x11")
+    set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
+  else
+    set guifont=Inconsolata:h13:cDEFAULT " --Windows font
+  endif
+endif
+
 " Toggle gui elements
 nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
@@ -194,10 +225,16 @@ set splitbelow "split windows
 set splitright
 
 "split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nmap <silent><A-Up> :wincmd k<CR>
+nmap <silent><A-Down> :wincmd j<CR>
+nmap <silent><A-Right> :wincmd l<CR>
+nmap <silent><A-Left> :wincmd h<CR>
+
+
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
 
 " Enable folding
 set foldmethod=indent
@@ -212,10 +249,14 @@ nnoremap <space> za
 set cursorline
 " Visual autocomplete for command menu (e.g. :e ~/path/to/file)
 set wildmenu
+set wildmode=list:longest
+
+
 " redraw only when we need to (i.e. don't redraw when executing a macro)
 set lazyredraw
 " highlight a matching [{()}] when cursor is placed on start/end character
 set showmatch
+set showmode "test marco 11/18
 " Always highlight column 80 so it's easier to see where
 " cutoff appears on longer screens
 autocmd BufWinEnter * highlight ColorColumn ctermbg=white
@@ -224,7 +265,7 @@ set mouse=a
 " Ensure Vim doesn't beep at you every time you make a mistype
 set visualbell
 
-" Change colourscheme when diffing
+" Change color scheme when diffing
 fun! SetDiffColors()
   highlight DiffAdd    cterm=bold ctermfg=white ctermbg=DarkGreen
   highlight DiffDelete cterm=bold ctermfg=white ctermbg=DarkGrey
@@ -249,3 +290,108 @@ au BufNewFile,BufRead *.js, *.html, *.css
 
 
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+"------------------------"
+"NERDTREE PLUGIN SETTINGS ---added 25/11
+"------------------------"
+"Shortcut for NERDTreeToggle
+nmap <leader>nt :NERDTreeToggle <CR>
+
+"Show hidden files in NerdTree
+let NERDTreeShowHidden=1
+
+"autopen NERDTree and focus cursor in new document
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd p
+
+" -----------------------------
+
+"Helpeful abbreviations
+iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+"Spelling corrects. Just for example. Add yours below.
+iab teh the
+iab Teh The
+iab Adn And
+iab adn and
+
+"Automatically change the current directory
+"autocmd BufEnter * silent! lcd %:p:h
+
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+
+
+cabbr <expr> %% expand('%:p:h')
+"while editing file /some/path/myfile.txt, typing :e %%/ on the command line will expand to  :e /some/path/.
+
+set path=$PWD/**
+"This will set your path variable to current directory (from which you launched vim) and to all directories under current directory recursively
+" Write all buffers before navigating from Vim to tmux pane
+let g:tmux_navigator_save_on_switch = 1
+
+"You Completeme configuration 
+
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+"Wordpress.vim
+let g:wordpress_vim_wordpress_path = "~/wordpress/" 
+
+"autocomplete PHP
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP"
+"Ctags
+set tags=./tags;
+
+"Keep your cursor 6 lines above end of screen
+set scrolloff=6
+
+"Disable arrow keys in normal mode
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+"Investigate.vim settings
+let g:investigate_command_for_python = '/usr/bin/zeal ^s'
+
+"Investigate.vim mapping
+:nnoremap gz :!zeal "<cword>"&<CR><CR>
+
+
+
+"Usage:
+
+	" Open URI under cursor.
+	" Search word under cursor.
+	nmap goo <Plug>(openbrowser-search)
+	" Search selected word. vmap map-you-like <Plug>(openbrowser-search)
+
+	" If it looks like URI, open an URI under cursor.
+	" Otherwise, search a word under cursor.
+	nmap gos <Plug>(openbrowser-smart-search)
+	" If it looks like URI, open selected URI.
+	" Otherwise, search selected word.
+	vmap gos <Plug>(openbrowser-smart-search)
+
+"	" Open http://google.com/ in a web browser.
+"	:OpenBrowser http://google.com/
+"	" Search the word "vim". (Default search engine is google)
+"	:OpenBrowserSearch vim
+"	" Search the word "openbrowser" in www.vim.org .
+"	:OpenBrowserSearch -vim openbrowser
+"	" If it looks like URL, open the URL in a web browser.
+"	:OpenBrowserSmartSearch http://www.vim.org/
+"	" If it does not look like URL, open the word
+"	" in the default search engine.
+"	:OpenBrowserSmartSearch emacs download
+"	" Also you can specify another search engine.
+"	:OpenBrowserSmartSearch -github tyru
+
+"CDC =Change to directory of the current file
+if !exists("command")
+command! CDC cd %:p:h
+endif
+
+"This method uses a command line abbreviation so %% expands to the full path of the directory that contains the current file 
+cabbr <expr> %% expand('%:p:h')
+
