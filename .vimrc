@@ -1,5 +1,5 @@
 set nocompatible
-filetype off
+filetype on
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -50,19 +50,23 @@ Plugin 'tomasr/molokai'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'W0ng/vim-hybrid'
 Plugin 'jnurmine/Zenburn'
+Plugin 'tamwitsta/flatwhite-vim'
 
 " navigation
 Plugin 'easymotion/vim-easymotion'
 Plugin 'ervandew/supertab'
+Plugin 'bufexplorer.zip'
 
 Plugin 'jistr/vim-nerdtree-tabs'
-
+"Tmux navigation
+Plugin 'christoomey/vim-tmux-navigator'
 " Incremental search
 Plugin 'haya14busa/incsearch.vim'
 
 " snippets
 Plugin 'SirVer/ultisnips'
-Plugin 'sudar/vim-wordpress-snippets'
+"Documentación
+Plugin 'Keith/investigate.vim'
 
 " php
 Plugin 'StanAngeloff/php.vim'
@@ -76,7 +80,7 @@ Plugin 'eugen0329/vim-esearch'
 
 Plugin 'dsawardekar/wordpress.vim'
 
-"Plugin 'valloric/youcompleteme'
+Plugin 'valloric/youcompleteme'
 
 Plugin 'raimondi/delimitmate'
 
@@ -121,7 +125,7 @@ set encoding=utf-8
 
 " ===== Search options ======
 "
-"Highlight search matches
+"Highligth search matches
 set hlsearch
 "Ignore case when searching
 set ignorecase
@@ -147,8 +151,7 @@ set shiftwidth=4
 
 " Highlight tailing whitespace
 set listchars=tab:\ \},trail:.
-" Find trailing whitespace
-match ErrorMsg '\s\+$'
+" Find trailing whitespace match ErrorMsg '\s\+$'
 " Delete trailing whitespace
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
 
@@ -175,24 +178,28 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
- colorscheme industry "evening spacegray industry test  Marco
-  :hi SpellBad cterm=underline "test Marco
+  colorscheme industry
 endif
-call togglebg#map("<F5>")
-set lines=48 columns=100 "Window size
+"Change spelling highlightning
+hi clear SpellBad
+hi SpellBad cterm=underline
+
+"call togglebg#map("<F5>")
+set lines=36 columns=120 "Window size
+
 
 " Font options
 if has("gui_running")
   if has("gui_gtk2") || has("gui_gtk3")
-    set guifont=Inconsolata\ 12
+    set guifont=Inconsolata\ 13
   elseif has("gui_photon")
-    set guifont=Inconsolata\:s12
+    set guifont=Inconsolata\:s13
   elseif has("gui_kde")
-    set guifont=Courier\ New/12/-1/5/50/0/0/0/1/0
+    set guifont=Courier\ New/13/-1/5/50/0/0/0/1/0
   elseif has("x11")
     set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
   else
-    set guifont=Inconsolata:h12:cDEFAULT " --Windows font
+    set guifont=Inconsolata:h13:cDEFAULT " --Windows font
   endif
 endif
 
@@ -212,10 +219,16 @@ set splitbelow "split windows
 set splitright
 
 "split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nmap <silent><A-Up> :wincmd k<CR>
+nmap <silent><A-Down> :wincmd j<CR>
+nmap <silent><A-Right> :wincmd l<CR>
+nmap <silent><A-Left> :wincmd h<CR>
+
+
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
 
 " Enable folding
 set foldmethod=indent
@@ -230,16 +243,10 @@ nnoremap <space> za
 set cursorline
 " Visual autocomplete for command menu (e.g. :e ~/path/to/file)
 set wildmenu
-
-set wildmode=list:longest
-
 " redraw only when we need to (i.e. don't redraw when executing a macro)
 set lazyredraw
 " highlight a matching [{()}] when cursor is placed on start/end character
 set showmatch
-
-set showmode "test marco 11/18
-
 " Always highlight column 80 so it's easier to see where
 " cutoff appears on longer screens
 autocmd BufWinEnter * highlight ColorColumn ctermbg=white
@@ -291,20 +298,90 @@ autocmd VimEnter * wincmd p
 
 "Helpeful abbreviations
 iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
 "Spelling corrects. Just for example. Add yours below.
 iab teh the
 iab Teh The
+iab Adn And
+iab adn and
 
-"Automatically change the current directory 
+"Automatically change the current directory
 "autocmd BufEnter * silent! lcd %:p:h
 
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 
 
-cabbr <expr> %% expand('%:p:h') 
+cabbr <expr> %% expand('%:p:h')
 "while editing file /some/path/myfile.txt, typing :e %%/ on the command line will expand to  :e /some/path/.
 
 set path=$PWD/**
-" This will set your path variable to current directory (from which you launched vim) and to all directories under current directory recursively
+"This will set your path variable to current directory (from which you launched vim) and to all directories under current directory recursively
+" Write all buffers before navigating from Vim to tmux pane
+let g:tmux_navigator_save_on_switch = 1
+
+"You Completeme configuration 
+
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+"Wordpress.vim
+let g:wordpress_vim_wordpress_path = "~/wordpress/" 
+
+"autocomplete PHP
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP"
+"Ctags
+set tags=./tags;
+
+"Keep your cursor 6 lines above end of screen
+set scrolloff=6
+
+"Disable arrow keys in normal mode
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+"Investigate.vim settings
+let g:investigate_command_for_python = '/usr/bin/zeal ^s'
+
+"Investigate.vim mapping
+:nnoremap gz :!zeal "<cword>"&<CR><CR>
+
+
+
+"Usage:
+
+	" Open URI under cursor.
+	" Search word under cursor.
+	nmap goo <Plug>(openbrowser-search)
+	" Search selected word. vmap map-you-like <Plug>(openbrowser-search)
+
+	" If it looks like URI, open an URI under cursor.
+	" Otherwise, search a word under cursor.
+	nmap gos <Plug>(openbrowser-smart-search)
+	" If it looks like URI, open selected URI.
+	" Otherwise, search selected word.
+	vmap gos <Plug>(openbrowser-smart-search)
+
+"	" Open http://google.com/ in a web browser.
+"	:OpenBrowser http://google.com/
+"	" Search the word "vim". (Default search engine is google)
+"	:OpenBrowserSearch vim
+"	" Search the word "openbrowser" in www.vim.org .
+"	:OpenBrowserSearch -vim openbrowser
+"	" If it looks like URL, open the URL in a web browser.
+"	:OpenBrowserSmartSearch http://www.vim.org/
+"	" If it does not look like URL, open the word
+"	" in the default search engine.
+"	:OpenBrowserSmartSearch emacs download
+"	" Also you can specify another search engine.
+"	:OpenBrowserSmartSearch -github tyru
+
+"CDC =Change to directory of the current file
+if !exists("command")
+command! CDC cd %:p:h
+endif
+
+"This method uses a command line abbreviation so %% expands to the full path of the directory that contains the current file 
+cabbr <expr> %% expand('%:p:h')
+
