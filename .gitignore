@@ -1,8 +1,18 @@
 # ignore all files starting with .
 .*
+*.log
 
 # track this file .gitignore (i.e. do NOT ignore it)
 !.gitignore
+!.vimrc
+
+Ignore directories
+
+/*/
+/*/*
+./*/
+./*/*
+
 
 # track .editorconfig file (i.e. do NOT ignore it)
 !.editorconfig
