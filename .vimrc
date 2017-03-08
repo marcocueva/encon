@@ -63,7 +63,8 @@ Plugin 'ervandew/supertab'
 Plugin 'bufexplorer.zip'
 
 Plugin 'jistr/vim-nerdtree-tabs'
-"Tmux navigation
+"Tmux navigation & Integration
+Plugin 'tmux-plugins/vim-tmux'
 Plugin 'christoomey/vim-tmux-navigator'
 " Incremental search
 Plugin 'haya14busa/incsearch.vim'
@@ -138,9 +139,9 @@ set smartcase
 " Incremental searching (search as you type)
 set incsearch
 
-"map /  <Plug>(incsearch-forward)
-"map ?  <Plug>(incsearch-backward)
-"map g/ <Plug>(incsearch-stay)
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 " Show incomplete commands
 set showcmd
@@ -183,7 +184,8 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
-  colorscheme molokai "dracula industry
+  colorscheme pencil "molokai dracula industry
+  set background=dark
 endif
 "Change spelling highlightning
 hi clear SpellBad
@@ -389,4 +391,10 @@ endif
 
 "This method uses a command line abbreviation so %% expands to the full path of the directory that contains the current file 
 cabbr <expr> %% expand('%:p:h')
+
+"Neovim conf.
+set termguicolors
+:let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
+
+"set term=screen-256color
 
