@@ -184,7 +184,7 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
-  colorscheme pencil "molokai dracula industry
+  colorscheme desert "pencil molokai dracula industry
   set background=dark
 endif
 "Change spelling highlightning
@@ -393,7 +393,7 @@ endif
 cabbr <expr> %% expand('%:p:h')
 
 "Neovim conf.
-set termguicolors
+"set termguicolors
 :let $NVIM_TUI_ENABLE_CURSOR_SHAPE=2
 
 "set term=screen-256color

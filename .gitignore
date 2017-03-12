@@ -10,6 +10,8 @@
 
 Ignore directories
 
+/wordpress/*
+/wordpress/public/site
 /*/
 /*/*
 ./*/

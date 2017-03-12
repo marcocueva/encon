@@ -1,13 +1,23 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# want your terminal to support 256 color schemes? I do ...
+export TERM="xterm-256color"
+
+# if you do a 'rm *', Zsh will give you a sanity check!
+setopt RM_STAR_WAIT
+
+# allows you to type Bash style comments on your command line
+# good 'ol Bash
+setopt interactivecomments
+
 # Path to your oh-my-zsh installation.
   export ZSH=/home/marco/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="re5et"
+ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -29,10 +39,10 @@ ZSH_THEME="re5et"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+ COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -55,6 +65,8 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+source ~/.bin/tmuxinator.zsh
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -66,17 +78,8 @@ source $ZSH/oh-my-zsh.sh
  if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='vim'
  else
-   export EDITOR='gvim'
+   export EDITOR='nvim'
  fi
-
-# make sure that if a program wants you to edit
-# # text, that Vim is going to be there for you
-  export EDITOR="vim"
-  export USE_EDITOR=$EDITOR
-  export VISUAL=$EDITOR
- 
-# ooh, what is this? Aliases?
-  source .oh-my-zsh/lib/alias.zsh
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -90,22 +93,10 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+ alias zshconfig="mate ~/.zshrc"
+ alias ohmyzsh="mate ~/.oh-my-zsh"
 
-
-# want your terminal to support 256 color schemes? I do ...
- export TERM="xterm-256color"
-#
-# # if you do a 'rm *', Zsh will give you a sanity check!
- setopt RM_STAR_WAIT
-#
-# # allows you to type Bash style comments on your command line
-# # good 'ol Bash
- setopt interactivecomments
-#
-# # Zsh has a spelling corrector
- setopt CORRECT
-
- source ~/.config/tmuxinator.zsh
-
+alias -s tex=vim
+alias -s html=w3m
+alias -s org=w3m
+alias -s md=vim
