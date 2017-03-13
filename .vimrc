@@ -16,6 +16,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-obsession'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
 "Plugin 'L9'
@@ -55,6 +56,7 @@ Plugin 'tpope/vim-vividchalk'
 Plugin 'reedes/vim-colors-pencil'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'dracula/vim'
+Plugin 'albertorestifo/github.vim'
 
 
 " navigation
@@ -77,6 +79,8 @@ Plugin 'Keith/investigate.vim'
 " php
 Plugin 'StanAngeloff/php.vim'
 Plugin 'shawncplus/phpcomplete.vim'
+
+Bundle 'joonty/vim-phpqa.git'
 
 " general web/dev
 Plugin 'tpope/vim-markdown'
@@ -174,7 +178,7 @@ setlocal spell spelllang=en_us
 set complete+=kspell
 
 " Xtra words / Private dict.
-set spellfile=$HOME/encon/spell/privateDict.utf-8.add
+set spellfile=$HOME/.vim/spell/privateDict.utf-8.add
 
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
@@ -184,8 +188,8 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
-  colorscheme desert "pencil molokai dracula industry
-  set background=dark
+  colorscheme PaperColor "desert pencil molokai dracula industry
+  set background=light
 endif
 "Change spelling highlightning
 hi clear SpellBad
@@ -206,7 +210,7 @@ if has("gui_running")
   elseif has("x11")
     set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
   else
-    set guifont=Inconsolata:h13:cDEFAULT " --Windows font
+    set guifont=Source\ Code\ Pro\ Light\ 12
   endif
 endif
 
@@ -398,3 +402,20 @@ cabbr <expr> %% expand('%:p:h')
 
 "set term=screen-256color
 
+"Syntasyic rules
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"Multiple cursors
+
+set selection=inclusive
+
+" Default highlighting (see help :highlight and help :highlight-link)
+highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
+highlight link multiple_cursors_visual Visual
