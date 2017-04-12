@@ -57,6 +57,7 @@ Plugin 'reedes/vim-colors-pencil'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'dracula/vim'
 Plugin 'albertorestifo/github.vim'
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 
 " navigation
@@ -68,7 +69,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 "Tmux navigation & Integration
 Plugin 'tmux-plugins/vim-tmux'
 Plugin 'christoomey/vim-tmux-navigator'
-" Incremental search
+" Incremental searc
 Plugin 'haya14busa/incsearch.vim'
 
 " snippets
@@ -202,17 +203,18 @@ set lines=36 columns=120 "Window size
 " Font options
 if has("gui_running")
   if has("gui_gtk2") || has("gui_gtk3")
-    set guifont=Inconsolata\ 13
+    set guifont=Hack\ 11
   elseif has("gui_photon")
-    set guifont=Inconsolata\:s13
+    set guifont=Inconsolata\ for\ Powerline:s13
   elseif has("gui_kde")
     set guifont=Courier\ New/13/-1/5/50/0/0/0/1/0
   elseif has("x11")
     set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
   else
-    set guifont=Source\ Code\ Pro\ Light\ 12
+    set guifont=Inconsolata\ for\ Powerline\ 12
   endif
 endif
+let g:Powerline_symbols = 'fancy'
 
 " Toggle gui elements
 nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
@@ -419,3 +421,12 @@ set selection=inclusive
 " Default highlighting (see help :highlight and help :highlight-link)
 highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
 highlight link multiple_cursors_visual Visual
+
+" Powerline
+
+"set rtp+=/home/marco/.local/lib/python2.7/site-packages/powerline/bindings/vim
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+set t_Co=256
+set fillchars+=stl:\ ,stlnc:\

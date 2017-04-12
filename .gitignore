@@ -81,3 +81,14 @@ public/site/*
 !public/site/wp-config.php
 !public/site/config/wordpress.php
 !public/site/config/env/development.php
+
+Onedrive
+Dropbox
+Music
+Pictures
+
+*.sh
+*.ini
+*.ROM
+_*
+:so*
